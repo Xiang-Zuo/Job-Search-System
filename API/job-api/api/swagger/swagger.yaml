@@ -1,0 +1,135 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Hello World App
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /:
+    get:
+      description: Return all jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        200:
+          description: ok
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/JobInfo"
+      x-swagger-router-controller: GetAllJobs
+  /jobs/{keyword}:
+    get:
+      description: Return job by keyword
+      operationId: GetJobsByKeyword
+      produces:
+      - "application/json"
+      parameters:
+      - name: keyword
+        in: path
+        description: keyword of job
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/JobInfo"
+      x-swagger-router-controller: GetJobsByKeyword
+  /job-update/{id}:
+    put:
+      description: update job by name
+      operationId: UpdateJobById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: updated_job
+        in: body
+        schema:
+          $ref: "#/definitions/JobInfo"
+      responses:
+        200:
+          description: updated
+          schema:
+            $ref: "#/definitions/ResponseInfo"
+        400:
+          description: error when update
+      x-swagger-router-controller: UpdateJobById
+    delete:
+      description: delete job by id
+      operationId: DeleteJobById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      responses:
+        204:
+          description: job deleted
+      x-swagger-router-controller: DeleteJobById
+
+
+      # parameters:
+      #   - name: name
+      #     in: query
+      #     description: The name of the person to whom to say hello
+      #     required: false
+      #     type: string
+      # responses:
+      #   "200":
+      #     description: Success
+      #     schema:
+      #       # a pointer to a definition
+      #       $ref: "#/definitions/HelloWorldResponse"
+      #   # responses may fall through to errors
+      #   default:
+      #     description: Error
+      #     schema:
+      #       $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  JobInfo:
+    type: "object"
+    properties:
+      job_id:
+        type: "integer"
+      job_position:
+        type: "string"
+      job_company:
+        type: "string"
+      job_location:
+        type: "string"
+      job_summary:
+        type: "string"
+      job_tag:
+        type: "string"
+      job_hidden:
+        type: "boolean"
+      job_url:
+        type: "string"
+  ResponseInfo:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      message:
+        type: "string"

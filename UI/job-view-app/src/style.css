@@ -1,0 +1,44 @@
+table {
+	text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+    width: 100%;
+    border: 1px dotted grey;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+th {
+	color: #666666;
+}
+
+td{
+	border:1px solid #999999;
+}
+
+.position {
+	width: 12%;
+	text-align:left;
+}
+
+.company {
+	width: 150px;
+	text-align:left;
+}
+
+.location {
+	width: 130px;
+	text-align:left;
+}
+
+.summary {
+	width: 45%;
+	text-align:left;
+}
+
+.tag {
+	width: 8%;
+	text-align:left;
+}
+
+
